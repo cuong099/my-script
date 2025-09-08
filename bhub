@@ -14,51 +14,59 @@ local LocalPlayer = Players.LocalPlayer
 local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
 ScreenGui.ResetOnSpawn = false
 
--- Toggle Button (circle, draggable)
-local ToggleBtn = Instance.new("TextButton")
-ToggleBtn.Size = UDim2.new(0,40,0,40)
-ToggleBtn.Position = UDim2.new(0,50,0,200)
-ToggleBtn.Text = "￢ﾗﾎ"
-ToggleBtn.TextSize = 20
-ToggleBtn.BackgroundColor3 = Color3.fromRGB(50,150,250)
-ToggleBtn.TextColor3 = Color3.fromRGB(255,255,255)
-ToggleBtn.Parent = ScreenGui
-ToggleBtn.Active = true
-ToggleBtn.Draggable = true
-
--- Make it circle
-local UICorner = Instance.new("UICorner", ToggleBtn)
-UICorner.CornerRadius = UDim.new(1,0)
-
--- Main Frame
+-- Main Frame (Utility Hub container)
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0,220,0,280)
-MainFrame.Position = UDim2.new(0.5,-110,0.5,-140)
+MainFrame.Size = UDim2.new(0,240,0,320)
+MainFrame.Position = UDim2.new(0.5,-120,0.5,-160)
 MainFrame.BackgroundColor3 = Color3.fromRGB(40,40,40)
-MainFrame.Visible = false
+MainFrame.Visible = true
 MainFrame.Parent = ScreenGui
 
--- Header (drag area)
-local Header = Instance.new("TextLabel")
-Header.Size = UDim2.new(1,0,0,25)
+-- Header (drag + toggle)
+local Header = Instance.new("Frame")
+Header.Size = UDim2.new(1,0,0,30)
 Header.BackgroundColor3 = Color3.fromRGB(30,30,30)
-Header.Text = " Utility Hub "
-Header.TextColor3 = Color3.fromRGB(255,255,255)
 Header.Parent = MainFrame
 Header.Active = true
 Header.Draggable = true
 
--- Toggle GUI
+-- Header Title
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,-60,1,0)
+Title.Position = UDim2.new(0,0,0,0)
+Title.BackgroundTransparency = 1
+Title.Text = " Utility Hub "
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.Parent = Header
+
+-- Toggle GUI button in header
+local ToggleBtn = Instance.new("TextButton")
+ToggleBtn.Size = UDim2.new(0,50,1,0)
+ToggleBtn.Position = UDim2.new(1,-55,0,0)
+ToggleBtn.Text = "◎"
+ToggleBtn.TextSize = 18
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(50,150,250)
+ToggleBtn.TextColor3 = Color3.fromRGB(255,255,255)
+ToggleBtn.Parent = Header
+
+-- Content Frame
+local Content = Instance.new("Frame")
+Content.Size = UDim2.new(1,0,1,-30)
+Content.Position = UDim2.new(0,0,0,30)
+Content.BackgroundTransparency = 1
+Content.Parent = MainFrame
+
+-- Toggle main content
 ToggleBtn.MouseButton1Click:Connect(function()
-    MainFrame.Visible = not MainFrame.Visible
+    Content.Visible = not Content.Visible
 end)
 
 ------------------------------------------------
 -- Auto Click
 local AutoClickEnabled = false
-local AutoClickBtn = Instance.new("TextButton", MainFrame)
+local AutoClickBtn = Instance.new("TextButton", Content)
 AutoClickBtn.Size = UDim2.new(0,200,0,30)
-AutoClickBtn.Position = UDim2.new(0,10,0,40)
+AutoClickBtn.Position = UDim2.new(0,20,0,10)
 AutoClickBtn.Text = "Auto Click: OFF"
 
 local function doAutoClick()
@@ -92,9 +100,9 @@ end)
 -- Noclip
 local NoclipEnabled = false
 local NoclipConnection
-local NoclipBtn = Instance.new("TextButton", MainFrame)
+local NoclipBtn = Instance.new("TextButton", Content)
 NoclipBtn.Size = UDim2.new(0,200,0,30)
-NoclipBtn.Position = UDim2.new(0,10,0,80)
+NoclipBtn.Position = UDim2.new(0,20,0,50)
 NoclipBtn.Text = "Noclip: OFF"
 
 local function enableNoclip()
@@ -142,9 +150,9 @@ end)
 ------------------------------------------------
 -- Infinity Jump
 local InfJumpEnabled = false
-local InfJumpBtn = Instance.new("TextButton", MainFrame)
+local InfJumpBtn = Instance.new("TextButton", Content)
 InfJumpBtn.Size = UDim2.new(0,200,0,30)
-InfJumpBtn.Position = UDim2.new(0,10,0,120)
+InfJumpBtn.Position = UDim2.new(0,20,0,90)
 InfJumpBtn.Text = "Infinity Jump: OFF"
 
 UserInputService.JumpRequest:Connect(function()
@@ -164,9 +172,9 @@ end)
 ------------------------------------------------
 -- Auto Spawn
 local AutoSpawnEnabled = false
-local AutoSpawnBtn = Instance.new("TextButton", MainFrame)
+local AutoSpawnBtn = Instance.new("TextButton", Content)
 AutoSpawnBtn.Size = UDim2.new(0,200,0,30)
-AutoSpawnBtn.Position = UDim2.new(0,10,0,160)
+AutoSpawnBtn.Position = UDim2.new(0,20,0,130)
 AutoSpawnBtn.Text = "Auto Spawn: OFF"
 
 local function doAutoSpawn()
@@ -193,9 +201,9 @@ end)
 ------------------------------------------------
 -- Godmode
 local GodEnabled = false
-local GodBtn = Instance.new("TextButton", MainFrame)
+local GodBtn = Instance.new("TextButton", Content)
 GodBtn.Size = UDim2.new(0,200,0,30)
-GodBtn.Position = UDim2.new(0,10,0,200)
+GodBtn.Position = UDim2.new(0,20,0,170)
 GodBtn.Text = "Godmode: OFF"
 
 local function doGodmode()
